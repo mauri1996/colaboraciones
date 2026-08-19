@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }}</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f4f1ea;
+      --card: #fffdf8;
+      --ink: #1f2933;
+      --muted: #52606d;
+      --ok: #0f7b4c;
+      --warn: #b45309;
+      --line: #e4ddd2;
+    }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+    }
+    main {
+      max-width: 720px;
+      margin: 48px auto;
+      padding: 0 20px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 8px 24px rgba(31, 41, 51, 0.06);
+    }
+    h1 { margin: 0 0 8px; font-size: 1.8rem; }
+    p { color: var(--muted); line-height: 1.5; }
+    .ok { color: var(--ok); font-weight: 700; letter-spacing: 0.04em; }
+    ul { padding-left: 1.1rem; }
+    li { margin: 0.35rem 0; }
+    .tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #e8f5ee;
+      color: var(--ok);
+      margin-bottom: 12px;
+    }
+    code { font-size: 0.9em; }
+    .warn { color: var(--warn); }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="card">
+      <div class="tag">Fase {{ phase }} · local</div>
+      <h1 class="ok">Contabilizador OK</h1>
+      <p>Escribe a <a href="https://t.me/{{ bot_username }}">@{{ bot_username }}</a>
+        un gasto, por ejemplo <code>almuerzo 8.50</code>, y confirma. Daysi puede unirse luego con <code>/soy Daysi</code>.</p>
+      <ul>
+        <li>Base de datos: {% if db_ok %}<strong>conectada</strong>{% else %}<span class="warn">error {{ db_error }}</span>{% endif %}
+          <br><code>{{ db_path }}</code>
+        </li>
+        <li>Tablas: {{ tables | join(", ") }}</li>
+        <li>Hogar: {{ person_a }} y {{ person_b }}</li>
+        <li>Bot: {% if bot_running %}<strong>polling activo</strong>{% else %}<span class="warn">detenido</span>{% endif %}
+          · @{{ bot_username }}
+        </li>
+        <li>Token de Telegram: {% if telegram_ok %}presente{% else %}<span class="warn">falta</span>{% endif %}</li>
+        <li>Gemini: {% if gemini_ok %}{{ gemini_model }}{% else %}<span class="warn">key de prueba</span>{% endif %}</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

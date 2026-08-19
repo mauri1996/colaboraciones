@@ -1,0 +1,18 @@
+---
+description: Convenciones del proyecto Contabilizador (gastos del hogar + Telegram)
+alwaysApply: true
+---
+
+# Contabilizador
+
+- Sigue `AGENTS.md` y `docs/IMPLEMENTATION_PLAN.md`. No saltes de fase.
+- Stack: FastAPI + Jinja2 + HTMX, SQLAlchemy 2, SQLite, python-telegram-bot v21.
+- Un solo proceso: Uvicorn sirve el panel y, desde la fase 2, arranca el bot en polling.
+- Secretos solo en `.env`. Nunca los escribas en docs, logs ni commits.
+- LLM: Gemini Flash gratis; Groq de respaldo. Textos con monto = parser local, sin LLM.
+- UI y mensajes del bot en español. Moneda USD. Timezone `America/Guayaquil`.
+- Un gasto no se marca `confirmed` sin confirmación del usuario.
+- Son esposos con finanzas conjuntas. Nunca muestres deudas ni “le debe a”.
+- `paid_by` es quién pagó, para ver cuánto gastó cada uno.
+- `shared` = conjunto del hogar. `personal` = propio. Ambos entran al total.
+- Dinero en `Numeric(12, 2)`, no `float`.
